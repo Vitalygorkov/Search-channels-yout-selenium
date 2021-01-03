@@ -13,8 +13,7 @@ driver = webdriver.Chrome('/home/v/PycharmProjects/django_barakov/mysite/youtsca
 
 conn = sqlite3.connect('bazasearch.db')
 cur = conn.cursor()
-# cur.execute("SELECT * FROM channels;")
-# all_results = cur.fetchall()
+
 cur.execute("""CREATE TABLE IF NOT EXISTS vidos(
    vidid INT,
    name TEXT,
@@ -24,10 +23,13 @@ cur.execute("""CREATE TABLE IF NOT EXISTS vidos(
    link TEXT PRIMARY KEY);
 """)
 conn.commit()
-# random.shuffle(all_results)
 
-link_list = ['https://www.youtube.com/results?search_query=handmade','https://www.youtube.com/results?search_query=diy', 'https://www.youtube.com/results?search_query=ideas', 'https://www.youtube.com/results?search_query=how+to+make', 'https://www.youtube.com/results?search_query=как+сделать', 'https://www.youtube.com/results?search_query=своими+руками']
-# link = 'https://www.youtube.com/results?search_query=handmade'
+link_list = ['https://www.youtube.com/results?search_query=handmade',
+             'https://www.youtube.com/results?search_query=diy',
+             'https://www.youtube.com/results?search_query=ideas',
+             'https://www.youtube.com/results?search_query=how+to+make',
+             'https://www.youtube.com/results?search_query=как+сделать',
+             'https://www.youtube.com/results?search_query=своими+руками']
 for link in link_list:
     driver.get(link)
     time.sleep(1)

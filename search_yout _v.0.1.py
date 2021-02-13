@@ -20,6 +20,7 @@ cur.execute("""CREATE TABLE IF NOT EXISTS vidos(
    descr TEXT,
    prosm INT,
    pub TEXT,
+   link_chan TEXT,
    link TEXT PRIMARY KEY);
 """)
 conn.commit()
@@ -30,38 +31,59 @@ link_list = ['https://www.youtube.com/results?search_query=handmade',
              'https://www.youtube.com/results?search_query=how+to+make',
              'https://www.youtube.com/results?search_query=как+сделать',
              'https://www.youtube.com/results?search_query=своими+руками']
-for link in link_list:
-    driver.get(link)
-    time.sleep(1)
-    len_scroll = 3000
-    for i in range(1, 80):
-        driver.execute_script("window.scrollBy(0,{})".format(len_scroll))
-        len_scroll += 6000
+link_list_test = ['https://www.youtube.com/results?search_query=handmade',]
+def get_vids():
+    for link in link_list_test:
+        driver.get(link)
         time.sleep(1)
-        print('прокрутка')
-    for i in driver.find_elements_by_id('video-title'):
-        vid_link = str(i.get_attribute('href'))
-        vid_description = str(i.get_attribute('aria-label'))
-        print(vid_link + '   ' + vid_description)
-        try:
-            author_date = str(vid_description.split('Автор:', 1)[1]).split(' ', 1)[1].rstrip()
-        except:
-            author_date = "author_date ошибка "
-            print("author_date ошибка" + str(vid_link))
-        stro = unicodedata.normalize('NFKD', author_date)
-        prosm_text = str(re.findall(r"\w{0}\s{0}\d+\s*\d*\s*\d* просм", stro))
-        prosm_int = re.findall(r'\d+', prosm_text)
-        try:
-            prosm_int = int(''.join(prosm_int))
-        except:
-            prosm_int = 0
-            print('prosm_int исключение' + str(vid_link))
+        len_scroll = 3000
+        # for i in range(1, 80):
+        #     driver.execute_script("window.scrollBy(0,{})".format(len_scroll))
+        #     len_scroll += 6000
+        #     time.sleep(1)
+        #     print('прокрутка')
+        num = 0
 
-        vids = ('1', author_date, vid_description, prosm_int, '0', vid_link)
-        print(vids)
-        try:
-            cur.execute("INSERT INTO vidos VALUES(?, ?, ?, ?, ?, ?);", vids)
-            conn.commit()
-        except sqlite3.IntegrityError as err:
-            print(str(err) + 'в ссылке: ' + link)
-driver.close()
+        print('цикл while')
+        for i in driver.find_elements_by_id('video-title'):
+            if num < 5:
+                num += 1
+                print('цикл for')
+                print(num)
+                vid_link = str(i.get_attribute('href'))
+                vid_description = str(i.get_attribute('aria-label'))
+                print(vid_link + '   ' + vid_description)
+                try:
+                    author_date = str(vid_description.split('Автор:', 1)[1]).split(' ', 1)[1].rstrip()
+                except:
+                    author_date = "author_date ошибка "
+                    print("author_date ошибка" + str(vid_link))
+                stro = unicodedata.normalize('NFKD', author_date)
+                prosm_text = str(re.findall(r"\w{0}\s{0}\d+\s*\d*\s*\d* просм", stro))
+                prosm_int = re.findall(r'\d+', prosm_text)
+                try:
+                    prosm_int = int(''.join(prosm_int))
+                except:
+                    prosm_int = 0
+                    print('prosm_int исключение' + str(vid_link))
+
+
+                link_chan = 'link_chan'
+
+                vids = ('1', author_date, vid_description, prosm_int, '0', link_chan, vid_link)
+                print(vids)
+                try:
+                    cur.execute("INSERT INTO vidos VALUES(?, ?, ?, ?, ?, ?, ?);", vids)
+                    conn.commit()
+                except sqlite3.IntegrityError as err:
+                    print(str(err) + 'в ссылке: ' + link)
+
+            else:
+                break
+
+
+    driver.close()
+
+get_vids()
+
+# "channel-name"

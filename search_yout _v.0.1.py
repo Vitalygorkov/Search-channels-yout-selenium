@@ -9,7 +9,7 @@ prefs = {"profile.managed_default_content_settings.images": 2}
 options.add_experimental_option("prefs", prefs)
 
 
-driver = webdriver.Chrome('/home/v/PycharmProjects/django_barakov/mysite/youtscan/moduls/chromedriver', options=options)
+driver = webdriver.Chrome('chromedriver.exe', options=options)
 
 conn = sqlite3.connect('bazasearch.db')
 cur = conn.cursor()

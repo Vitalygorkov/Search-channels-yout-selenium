@@ -1,6 +1,6 @@
 import sqlite3
 
-conn = sqlite3.connect('bazasearch.db')
+conn = sqlite3.connect('bazasearch_invest.db')
 cur = conn.cursor()
 
 my_result = cur.execute("""SELECT * FROM vidos

@@ -33,41 +33,46 @@ link_list = ['https://www.youtube.com/results?search_query=handmade',
              'https://www.youtube.com/results?search_query=как+сделать',
              'https://www.youtube.com/results?search_query=своими+руками']
 link_list_test = ['https://www.youtube.com/results?search_query=handmade',]
+link_list_invest = ['https://www.youtube.com/results?search_query=инвестиции',
+                    'https://www.youtube.com/results?search_query=доход',
+                    'https://www.youtube.com/results?search_query=заработок',]
+
+random.shuffle(link_list)
 def get_vids():
     for link in link_list_test:
         driver.get(link)
         time.sleep(1)
         len_scroll = 3000
-        # for i in range(1, 80):
+        # for i in range(1, 90):
         #     driver.execute_script("window.scrollBy(0,{})".format(len_scroll))
         #     len_scroll += 6000
         #     time.sleep(1)
         #     print('прокрутка')
         num = 0
 
-        print('цикл while')
+        # print('цикл while')
         for webobj in driver.find_elements_by_tag_name('ytd-video-renderer'):
             if num < 5:
                 num += 1
-                print('цикл for')
-                print(num)
-                print(webobj)
-                print(webobj.text)
-                print(str(webobj.get_attribute('href')))
-                print(str(webobj.get_attribute('aria-label')))
-                print(webobj.find_elements_by_id('video-title'))
+                # print('цикл for')
+                # print(num)
+                # print(webobj)
+                # print(webobj.text)
+                # print(str(webobj.get_attribute('href')))
+                # print(str(webobj.get_attribute('aria-label')))
+                # print(webobj.find_elements_by_id('video-title'))
                 name_channel = ''
                 link_chan = ''
                 for i in webobj.find_elements_by_id('video-title'):
-                    print('ссылка на видео ' + str(i.get_attribute('href')))
+                    # print('ссылка на видео ' + str(i.get_attribute('href')))
                     vid_link = str(i.get_attribute('href'))
                     vid_description = str(i.get_attribute('aria-label'))
-                    print(vid_link + '   ' + vid_description)
+                    # print(vid_link + '   ' + vid_description)
                     try:
                         author_date = str(vid_description.split('Автор:', 1)[1]).split(' ', 1)[1].rstrip()
                     except:
                         author_date = "author_date ошибка "
-                        print("author_date ошибка" + str(vid_link))
+                        # print("author_date ошибка" + str(vid_link))
                     stro = unicodedata.normalize('NFKD', author_date)
                     prosm_text = str(re.findall(r"\w{0}\s{0}\d+\s*\d*\s*\d* просм", stro))
                     prosm_int = re.findall(r'\d+', prosm_text)
@@ -86,15 +91,19 @@ def get_vids():
                             link_chan = c.get_attribute('href')
 
                 vids = ('1', author_date, name_channel, vid_description, prosm_int, '0', link_chan, vid_link)
-                print(vids)
+
+                vids = ('1', author_date, name_channel, vid_description, prosm_int, '0', link_chan, vid_link)
+                # print(vids)
                 try:
                     cur.execute("INSERT INTO vidos VALUES(?, ?, ?, ?, ?, ?, ?, ?);", vids)
                     conn.commit()
                 except sqlite3.IntegrityError as err:
-                    print(str(err) + 'в ссылке: ' + link)
-
+                    print(str(err) + 'в ссылке: ' + vid_link)
+                    my_result = cur.execute("SELECT * FROM vidos WHERE link=?", (link,))
+                    print(str(my_result) + 'это принт')
+                    # cur.execute("REPLACE INTO vidos VALUES(?, ?, ?, ?, ?, ?, ?, ?);", vids)
             else:
-                break
+                breakt
 
 
     driver.close()

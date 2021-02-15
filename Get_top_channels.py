@@ -1,7 +1,7 @@
 import sqlite3
 # get top channels
 def get_top_channels():
-    conn = sqlite3.connect('bazasearch_old.db')
+    conn = sqlite3.connect('bazasearch_invest.db')
     cur = conn.cursor()
     my_result = cur.execute("""SELECT * FROM vidos
     ORDER BY prosm DESC
@@ -17,7 +17,7 @@ def get_top_channels():
 
 def get_top_keywords(key1,key2):
     key2 = 'зараб'
-    conn = sqlite3.connect('bazasearch_old.db')
+    conn = sqlite3.connect('bazasearch_invest.db')
     cur = conn.cursor()
     my_result = cur.execute("""SELECT * FROM vidos
     ORDER BY prosm DESC
@@ -32,4 +32,5 @@ def get_top_keywords(key1,key2):
 
     return my_result
 
-get_top_keywords('дом','зараб')
+# get_top_keywords('дом','зараб')
+# get_top_channels()

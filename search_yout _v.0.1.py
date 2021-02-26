@@ -103,7 +103,7 @@ def get_vids():
                     print(str(my_result) + 'это принт')
                     # cur.execute("REPLACE INTO vidos VALUES(?, ?, ?, ?, ?, ?, ?, ?);", vids)
             else:
-                breakt
+                break
 
 
     driver.close()

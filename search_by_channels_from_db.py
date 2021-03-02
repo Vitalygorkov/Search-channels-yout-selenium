@@ -118,16 +118,23 @@ def get_vids():
 def getChannelSet(db):
     conn = sqlite3.connect(db)
     cur = conn.cursor()
-    my_result = cur.execute("""SELECT link_chan, name_channel, FROM vidos
+    my_result = cur.execute("""SELECT link_chan, name_channel FROM vidos
     """)
-    link_set = set()
-    for i in my_result:
-        # print(i[0])
-        link_set.add(i[0]+'/videos')
-    conn.close()
-    return link_set
+    # link_set = set()
+    # for i in my_result:
+    #     # print(i[0])
+    #     link_set.add(i[0]+'/videos')
+    # conn.close()
+    # return link_set
+    return my_result
 
-print(getChannelSet('bazasearch_invest.db'))
+# print(getChannelSet('bazasearch_invest.db'))
+num = 0
+for i in getChannelSet('bazasearch_invest.db'):
+    print(num)
+    print(i[0])
+    print(i[1])
+    num+=1
 
 def getChannelSet2(db):
     conn = sqlite3.connect(db)

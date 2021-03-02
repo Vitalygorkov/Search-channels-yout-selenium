@@ -120,21 +120,28 @@ def getChannelSet(db):
     cur = conn.cursor()
     my_result = cur.execute("""SELECT link_chan, name_channel FROM vidos
     """)
+    result_set = set()
+    for video in my_result:
+        result_set.add(video)
+    # conn.close()
+    return result_set
+
+
     # link_set = set()
     # for i in my_result:
     #     # print(i[0])
     #     link_set.add(i[0]+'/videos')
     # conn.close()
     # return link_set
-    return my_result
-
+    # return my_result
+getChannelSet('bazasearch_invest.db')
 # print(getChannelSet('bazasearch_invest.db'))
-num = 0
-for i in getChannelSet('bazasearch_invest.db'):
-    print(num)
-    print(i[0])
-    print(i[1])
-    num+=1
+# num = 0
+# for i in getChannelSet('bazasearch_invest.db'):
+#     print(num)
+#     print(i[0])
+#     print(i[1])
+#     num+=1
 
 def getChannelSet2(db):
     conn = sqlite3.connect(db)
@@ -212,8 +219,9 @@ def get_vid2():
 
 def get_vid3():
     for link in getChannelSet('bazasearch_invest.db'):
-
-        driver.get(link)
+        print(link[0]+'/videos') # link
+        print(link[1])  # name
+        driver.get(link[0]+'/videos')
         time.sleep(1)
         len_scroll = 3000
         for i in range(1, 9):
@@ -234,14 +242,14 @@ def get_vid3():
             stro = unicodedata.normalize('NFKD', author_date)
             prosm_text = str(re.findall(r"\w{0}\s{0}\d+\s*\d*\s*\d* просм", stro))
             prosm_int = re.findall(r'\d+', prosm_text)
-            prosm_list = str(video[4]) + ',' + str(datetime.date.today())+':'+str(prosm_int)+'не праиильно!!'
             try:
                 prosm_int = int(''.join(prosm_int))
             except:
                 prosm_int = 0
                 print('prosm_int исключение' + str(vid_link))
-            name_channel = video[2]
-            link_chan = video[6]
+            prosm_list = str(datetime.date.today()) + ':' + str(prosm_int) + ','
+            name_channel = link[1]
+            link_chan = link[0]
             # for b in driver.find_elements_by_id('channel-name'):
             #     for c in b.find_elements_by_tag_name('a'):
             #         if c.text != '':
@@ -259,10 +267,10 @@ def get_vid3():
                 conn.commit()
             except sqlite3.IntegrityError as err:
                 print(str(err) + 'в ссылке: ' + vid_link)
-                my_result = cur.execute("SELECT * FROM vidos WHERE link=?", (link,))
+                my_result = cur.execute("SELECT * FROM vidos WHERE link=?", (vid_link,))
                 print(str(my_result) + 'это принт')
                 # cur.execute("REPLACE INTO vidos VALUES(?, ?, ?, ?, ?, ?, ?, ?);", vids)
-
+get_vid3()
 
 
 def getLinkListCount(cuont,db):

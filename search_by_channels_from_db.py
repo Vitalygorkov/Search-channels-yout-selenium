@@ -104,7 +104,7 @@ def get_vids():
             conn.commit()
         except sqlite3.IntegrityError as err:
             print(str(err) + 'в ссылке: ' + vid_link)
-            my_result = cur.execute("SELECT * FROM vidos WHERE link=?", (link,))
+            # my_result = cur.execute("SELECT * FROM vidos WHERE link=?", (link,))
             print(str(my_result) + 'это принт')
             # cur.execute("REPLACE INTO vidos VALUES(?, ?, ?, ?, ?, ?, ?, ?);", vids)
 

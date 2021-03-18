@@ -269,9 +269,15 @@ def get_vid3():
                 print(str(err) + 'в ссылке: ' + vid_link)
                 my_result = cur.execute("SELECT * FROM vidos WHERE link=?", (vid_link,))
                 print(str(my_result) + 'это принт')
+                # print(my_result.fetchall())
+                # print(my_result.fetchall())
+                last_prosm = ''
                 for i in my_result:
-                    print(i)
-                # cur.execute("REPLACE INTO vidos VALUES(?, ?, ?, ?, ?, ?, ?, ?);", vids)
+                    print(i[4])
+                    last_prosm += i[4]
+                # print(last_prosm + 'это строка просмторов')
+                vids2 = ('1', author_date, name_channel, vid_description, last_prosm + ','+ prosm_list, '0', link_chan, vid_link)
+                cur.execute("REPLACE INTO vidos VALUES(?, ?, ?, ?, ?, ?, ?, ?);", vids2)
 get_vid3()
 
 

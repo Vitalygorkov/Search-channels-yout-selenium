@@ -99,8 +99,6 @@ def get_vids():
                             link_chan = c.get_attribute('href')
 
                 vids = ('1', author_date, name_channel, vid_description, prosm_list, '0', link_chan, vid_link)
-
-                vids = ('1', author_date, name_channel, vid_description, prosm_int, '0', link_chan, vid_link)
                 # print(vids)
                 try:
                     cur.execute("INSERT INTO vidos VALUES(?, ?, ?, ?, ?, ?, ?, ?);", vids)

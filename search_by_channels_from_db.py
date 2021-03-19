@@ -218,7 +218,7 @@ def get_vid2():
                 # cur.execute("REPLACE INTO vidos VALUES(?, ?, ?, ?, ?, ?, ?, ?);", vids)
 
 def get_vid3():
-    for link in getChannelSet('bazasearch_invest.db'):
+    for link in getChannelSet('bazasearch_invest1.db'):
         print(link[0]+'/videos') # link
         print(link[1])  # name
         driver.get(link[0]+'/videos')
@@ -275,9 +275,11 @@ def get_vid3():
                 for i in my_result:
                     print(i[4])
                     last_prosm += i[4]
+                new_prosm = last_prosm + prosm_list
                 # print(last_prosm + 'это строка просмторов')
-                vids2 = ('1', author_date, name_channel, vid_description, last_prosm + ','+ prosm_list, '0', link_chan, vid_link)
+                vids2 = ('1', author_date, name_channel, vid_description, new_prosm, '0', link_chan, vid_link)
                 cur.execute("REPLACE INTO vidos VALUES(?, ?, ?, ?, ?, ?, ?, ?);", vids2)
+                conn.commit()
 get_vid3()
 
 

@@ -32,6 +32,11 @@ link_list = ['https://www.youtube.com/results?search_query=handmade',
              'https://www.youtube.com/results?search_query=как+сделать',
              'https://www.youtube.com/results?search_query=своими+руками']
 link_list_test = ['https://www.youtube.com/results?search_query=handmade',]
+
+link_list_invest = ['https://www.youtube.com/results?search_query=инвестиции',
+                    'https://www.youtube.com/results?search_query=пассивный доход',
+                    'https://www.youtube.com/results?search_query=доходность',]
+
 def get_vids():
     for link in link_list_test:
         driver.get(link)

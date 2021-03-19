@@ -116,6 +116,7 @@ def get_vids():
                     print(str(err) + 'в ссылке: ' + vid_link)
                     my_result = cur.execute("SELECT * FROM vidos WHERE link=?", (link,))
                     print(str(my_result) + 'это принт')
+                    # Нужно сделать чтобы работала замена строки
                     # cur.execute("REPLACE INTO vidos VALUES(?, ?, ?, ?, ?, ?, ?, ?);", vids)
             else:
                 break

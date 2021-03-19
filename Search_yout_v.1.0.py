@@ -36,17 +36,26 @@ link_list = ['https://www.youtube.com/results?search_query=handmade',
 link_list_test = ['https://www.youtube.com/results?search_query=handmade',]
 link_list_invest = ['https://www.youtube.com/results?search_query=инвестиции',
                     'https://www.youtube.com/results?search_query=доход',
-                    'https://www.youtube.com/results?search_query=заработок',]
+                    'https://www.youtube.com/results?search_query=заработок',
+                    'https://www.youtube.com/results?search_query=источник дохода',
+                    'https://www.youtube.com/results?search_query=пассивный доход',
+                    'https://www.youtube.com/results?search_query=доходность',
+                    'https://www.youtube.com/results?search_query=окупаемость',
+                    'https://www.youtube.com/results?search_query=рентабельность',
+                    'https://www.youtube.com/results?search_query=прибыльность',
+                    ]
 link_list_invest2 = ['https://www.youtube.com/results?search_query=источник дохода',
                     'https://www.youtube.com/results?search_query=пассивный доход',
                     'https://www.youtube.com/results?search_query=доходность',]
+link_list_invest3 = ['https://www.youtube.com/results?search_query=окупаемость',
+                    'https://www.youtube.com/results?search_query=рентабельность',
+                    'https://www.youtube.com/results?search_query=прибыльность',]
 linnk = ['https://www.youtube.com/channel/UCeYDB1gVQXf4PDfxn5jV9dw/videos', 'https://www.youtube.com/channel/UCQUTeCBc0n3WB_ZPEeA4zTQ/videos']
 
-random.shuffle(link_list)
-random.shuffle(link_list)
+random.shuffle(link_list_invest)
 # Функция добавления вдосов из поиска по списку ключевых слов
 def get_vids():
-    for link in link_list_invest2:
+    for link in link_list_invest:
         driver.get(link)
         time.sleep(1)
         len_scroll = 3000

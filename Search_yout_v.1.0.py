@@ -9,7 +9,6 @@ options = webdriver.ChromeOptions()
 prefs = {"profile.managed_default_content_settings.images": 2}
 options.add_experimental_option("prefs", prefs)
 
-
 driver = webdriver.Chrome('chromedriver.exe', options=options)
 
 conn = sqlite3.connect('bazasearch.db')
@@ -124,7 +123,6 @@ def get_vids():
 
     driver.close()
 # Функция добавления вдосов из поиска по списку ключевых слов
-
 
 # Функция получения списка каналов из базы
 def getChannelSet(db):

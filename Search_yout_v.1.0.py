@@ -124,7 +124,7 @@ def get_vids():
 
     driver.close()
 # Функция добавления вдосов из поиска по списку ключевых слов
-get_vids()
+
 
 # Функция получения списка каналов из базы
 def getChannelSet(db):
@@ -146,7 +146,7 @@ def get_vid3():
         driver.get(link[0]+'/videos')
         time.sleep(1)
         len_scroll = 3000
-        for i in range(1, 9):
+        for i in range(1, 20):
             driver.execute_script("window.scrollBy(0,{})".format(len_scroll))
             len_scroll += 6000
             time.sleep(1)
@@ -203,6 +203,7 @@ def get_vid3():
                 cur.execute("REPLACE INTO vidos VALUES(?, ?, ?, ?, ?, ?, ?, ?);", vids2)
                 conn.commit()
 # Сканируем каналы из базы
-# get_vid3()
+get_vid3()
 
-# Сканируем каналы из базы
+# Добавляем в базу видосы по поиску по ключевым словам
+# get_vids()

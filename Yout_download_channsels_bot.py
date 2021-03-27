@@ -63,3 +63,15 @@ for link in link_list:
         except sqlite3.IntegrityError as err:
             print(str(err) + 'в ссылке: ' + link)
 driver.close()
+
+from pytube import YouTube
+import sqlite3
+
+conn = sqlite3.connect('bazasearch_download.db')
+cur = conn.cursor()
+cur.execute("""SELECT link FROM vidos""")
+vid_links = cur.fetchall()
+for i in vid_links:
+    yt = YouTube(i[0])
+    yt.streams.get_by_itag(18).download()
+    print(i[0])

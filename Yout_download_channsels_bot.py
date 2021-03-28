@@ -24,13 +24,13 @@ cur.execute("""CREATE TABLE IF NOT EXISTS vidos(
 """)
 conn.commit()
 
-links = ['https://www.youtube.com/channel/UC2-j4-hV33hboyK1FtukJ9w/videos',]
-def get_links(link_list)
+links = ['https://www.youtube.com/c/NickChernobaev/videos',]
+def get_links(link_list):
     for link in link_list:
         driver.get(link)
         time.sleep(1)
         len_scroll = 3000
-        for i in range(1, 140):
+        for i in range(1, 14):
             driver.execute_script("window.scrollBy(0,{})".format(len_scroll))
             len_scroll += 6000
             time.sleep(1)
@@ -62,7 +62,8 @@ def get_links(link_list)
                 print(str(err) + 'в ссылке: ' + link)
     driver.close()
 
-# get_links(links)
+# сохраняем ссылки в базу данных
+get_links(links)
 
 from pytube import YouTube
 import sqlite3

@@ -4,13 +4,13 @@ import time
 import random
 import unicodedata
 import re
+from pytube import YouTube
 options = webdriver.ChromeOptions()
 prefs = {"profile.managed_default_content_settings.images": 2}
 options.add_experimental_option("prefs", prefs)
-
-
 driver = webdriver.Chrome('chromedriver.exe', options=options)
 
+# создание пустой базы данных
 conn = sqlite3.connect('bazasearch_download.db')
 cur = conn.cursor()
 
@@ -65,8 +65,7 @@ def get_links(link_list):
 # сохраняем ссылки в базу данных
 get_links(links)
 
-from pytube import YouTube
-import sqlite3
+# Скачивание по ссылкамм из базы, нужно сделать в виде функции и очистка базы в конце.
 
 conn = sqlite3.connect('bazasearch_download.db')
 cur = conn.cursor()

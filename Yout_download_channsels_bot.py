@@ -10,7 +10,6 @@ from pytube import YouTube
 #Модуль бота
 import telebot
 from config import api_key
-import time
 
 
 bot = telebot.TeleBot(api_key)

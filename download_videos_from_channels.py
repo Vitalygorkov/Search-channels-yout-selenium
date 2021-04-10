@@ -72,6 +72,7 @@ def channel_download_module(chan_for_download, number_of_downloads):
     # запускаем функцию сохраняем ссылки в базу данных
     get_links(chan_for_download)
 
+
 def download_videos_from_db():
     # Скачивание по ссылкамм из базы, нужно сделать в виде функции и очистка базы в конце.
 
@@ -86,8 +87,10 @@ def download_videos_from_db():
     # нужно добавить очистку базы данных
     return 'просто текст результат функциии channel_download_module'
 
-vid_links = ['https://www.youtube.com/watch?v=oPr76UNIevI']
-for i in vid_links:
-    yt = YouTube(i)
-    yt.streams.get_by_itag(18).download()
-    print(i)
+# скачивание видео по отдельным ссылкам.
+def download_from_links(vid_links):
+    vid_links = ['https://www.youtube.com/watch?v=oPr76UNIevI']
+    for i in vid_links:
+        yt = YouTube(i)
+        yt.streams.get_by_itag(18).download()
+        print(i)

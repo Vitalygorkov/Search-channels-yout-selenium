@@ -9,8 +9,12 @@ from pytube import YouTube
 
 
 #МОдуль для получения ссылок на видео
-def channel_download_module(chan_for_download, number_of_downloads):
+def save_link_in_db_from_channel(chan_for_download):
     # создание пустой базы данных
+    # number_of_scrolling = 10
+    # print(number_of_scrolling)
+    chan_for_download_list = [chan_for_download,]
+
     options = webdriver.ChromeOptions()
     prefs = {"profile.managed_default_content_settings.images": 2}
     options.add_experimental_option("prefs", prefs)
@@ -37,7 +41,7 @@ def channel_download_module(chan_for_download, number_of_downloads):
             driver.get(link)
             time.sleep(1)
             len_scroll = 3000
-            for i in range(1, 14):
+            for i in range(1, 10):
                 driver.execute_script("window.scrollBy(0,{})".format(len_scroll))
                 len_scroll += 6000
                 time.sleep(1)
@@ -70,16 +74,23 @@ def channel_download_module(chan_for_download, number_of_downloads):
         driver.close()
 
     # запускаем функцию сохраняем ссылки в базу данных
-    get_links(chan_for_download)
+    get_links(chan_for_download_list)
 
 
-def download_videos_from_db():
+def download_videos_from_db(nums):
     # Скачивание по ссылкамм из базы, нужно сделать в виде функции и очистка базы в конце.
 
     conn = sqlite3.connect('bazasearch_download.db')
     cur = conn.cursor()
     cur.execute("""SELECT link FROM vidos""")
-    vid_links = cur.fetchall()
+    print(cur.execute("""SELECT link FROM vidos ORDER BY pub"""))
+    # vid_links = cur.fetchall()
+    vid_links = cur.fetchmany(nums)
+    # print(vid_links)
+    # for i in vid_links:
+    #     print(i)
+
+    # return 'просто текст результат функциии channel_download_module'
     for i in vid_links:
         yt = YouTube(i[0])
         yt.streams.get_by_itag(18).download()
@@ -89,8 +100,12 @@ def download_videos_from_db():
 
 # скачивание видео по отдельным ссылкам.
 def download_from_links(vid_links):
-    vid_links = ['https://www.youtube.com/watch?v=oPr76UNIevI']
+    vid_links = ['https://www.youtube.com/watch?v=oPr7555NIevI']
     for i in vid_links:
         yt = YouTube(i)
         yt.streams.get_by_itag(18).download()
         print(i)
+
+# save_link_in_db_from_channel('https://www.youtube.com/c/DjangoSchool/videos')
+
+download_videos_from_db(15)
